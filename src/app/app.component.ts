@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AdderComponent } from './components/adder/adder.component';
+import { CalculatorComponent } from './components/adder/calculator.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AdderComponent],
+  imports: [RouterOutlet, CalculatorComponent],
   templateUrl: './app.component.html'
   
 })

@@ -6,12 +6,12 @@ import { CalculatorService } from '../../services/calculator.service'
 // import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-adder',
+  selector: 'app-calculator',
   imports: [FormsModule],
-  templateUrl: './adder.component.html'
+  templateUrl: './calculator.component.html'
 
 })
-export class AdderComponent {
+export class CalculatorComponent {
 
   operationsRef = viewChild<ElementRef<HTMLSelectElement>>("operations")
 
@@ -30,16 +30,22 @@ export class AdderComponent {
     const fst  =  parseFloat(this.firstNumber)
     const snd  =  parseFloat(this.secondNumber)
  
-    // Get Access to the HTML Select Option Collection
-    const opers =  this.operationsRef()?.nativeElement.options as HTMLOptionsCollection
+    // Get Access to the HTML Select
+    const cbo =  this.operationsRef()?.nativeElement as HTMLSelectElement
 
-    // Get the Current Index Value
-    const idx =  this.operationsRef()?.nativeElement.selectedIndex as number
+    // Get Access to the HTML Select Option Collection
+    const opers =  cbo.options  
+    
+    // // Get the Current Index Value
+    // const idx =  
     
     // Get the value of the Selected Option
-    const oper = opers.item(idx)?.value as string
+    const oper = opers.item(opers.selectedIndex)?.value as string
 
+    // Call Python Fast API Service
     const data  = this.service.getData(oper, fst,snd)
+
+    // Retrive Data Asynch
     data.subscribe({
       next: (res: any) => {                       
         console.log("Result  from Service ", res)
