@@ -1,0 +1,32 @@
+
+<div class="container mt-3">
+    
+    <div>
+        <select #operations>
+            <option *ngFor="let oper of operators" [value]="oper">
+                {{ oper }}
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <label> First Number: </label>
+        <input type="text" maxlength="12" [(ngModel)]="firstNumber" />
+    </div>
+    
+    <div>
+        <label> Second Number: </label>
+        <input type="text" maxlength="12" [(ngModel)]="secondNumber" />
+    </div>
+    
+    <div>
+        <label> Result Number: </label>
+        <input type="text" maxlength="12" readonly="true" value="{{result}}" />
+    </div>
+    
+    
+    <div>
+    
+        <button type="button" class="btn btn-primary" (click)="doCalculate()">Add Numbers</button>
+    </div>
+</div>

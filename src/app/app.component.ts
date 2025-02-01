@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CalculatorComponent } from './components/adder/calculator.component';
+import { CalculatorComponent } from './components/calcualtor/calculator.component';
 
 
 @Component({
@@ -12,6 +12,5 @@ import { CalculatorComponent } from './components/adder/calculator.component';
 export class AppComponent {
 
   title = 'Calculator';
-
 
 }
