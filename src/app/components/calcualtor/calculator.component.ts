@@ -69,7 +69,7 @@ export class CalculatorComponent implements OnInit {
       return false
     }
     else {                          // Otherwise check each character
-      const anw  = [...num].every(isDigit)
+      const anw:boolean  = [...num].every(isDigit)
       return anw
     }
   }

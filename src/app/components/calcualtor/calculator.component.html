@@ -1,32 +1,55 @@
+<div class="container mt-3 ">
 
-<div class="container mt-3">
-    
-    <div>
-        <select #operations>
-            <option *ngFor="let oper of operators" [value]="oper">
-                {{ oper }}
-            </option>
-        </select>
+    <div class="row">
+        <div class="col-2">
+            <label>Operation: </label>
+        </div>
+        <div class="col-2  main-border">
+
+            <select #operations class="form-select text-bg-color" style="width: 10em;">
+                <option *ngFor="let oper of operators" [value]="oper">
+                    {{ oper }}
+                </option>
+            </select>
+
+        </div>
     </div>
 
-    <div>
-        <label> First Number: </label>
-        <input  #firstNum type="text" maxlength="12" [(ngModel)]="firstNumber" />
+    <div class="row">
+        <div class="col-2 ">
+            <label class="form-label"> First Number: </label>
+        </div>
+        <div class="col-2 main-border">
+            <input class="form-control text-bg-color"  #firstNum type="text" maxlength="12"
+                [(ngModel)]="firstNumber" />
+        </div>
+
     </div>
-    
-    <div>
-        <label> Second Number: </label>
-        <input #secondNum type="text" maxlength="12" [(ngModel)]="secondNumber" />
+
+    <div class="row">
+        <div class="col-2 ">
+            <label> Second Number: </label>
+        </div>
+        <div class="col-2 main-border">
+            <input class="form-control" style="background-color:lightcyan; " #secondNum type="text" maxlength="12"
+                [(ngModel)]="secondNumber" />
+        </div>
     </div>
-    
-    <div>
-        <label> Result Number: </label>
-        <input type="text" maxlength="12" readonly="true" value="{{result}}" />
+
+    <div class="row">
+        <div class="col-2 ">
+            <label> Result Number: </label>
+        </div>
+        <div class="col-2 main-border">
+            <input class="form-control" style="background-color:lightcyan; " type="text" maxlength="12" readonly="true"
+                value="{{result}}" />
+        </div>
     </div>
-    
-    
+
+
     <div>
-    
-        <button type="button" class="btn btn-primary" (click)="doCalculate()">Add Numbers</button>
+        <button type="button" class="btn btn-primary" (click)="doCalculate()">
+            <i class="bi bi-calculator">Calculate</i>
+        </button>
     </div>
 </div>

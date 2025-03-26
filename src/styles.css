@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+.main-border{
+    border-style: solid; 
+    border-color: rgb(204, 201, 201);
+}
+
+.text-bg-color {
+    background-color:lightcyan;
+}
