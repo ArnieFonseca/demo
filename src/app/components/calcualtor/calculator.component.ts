@@ -62,14 +62,22 @@ export class CalculatorComponent implements OnInit {
    */
   isNumeric(num:string):boolean {
 
+    const ZERO:string  = '0'
+    const NINE:string = '9'
+    const DOT  = '.'
+
     // Check 0 to 9 range
-    const isDigit = (n:string):boolean => n >= '0' && n <= '9'
+    type IsDigit = (n:string) => boolean
+    const isDigit:IsDigit = (n:string):boolean => (n >= ZERO && n <= NINE) || (n == DOT)
+
+    type NumberOfDecimalPoints = (n:string) => n is '.'
+    const numberOfDecimalPoints:NumberOfDecimalPoints  = (n:string) => n == DOT
 
     if (num.trim().length === 0) {  // Case of empty ==> False
       return false
     }
     else {                          // Otherwise check each character
-      const anw:boolean  = [...num].every(isDigit)
+      const anw:boolean  = [...num].every(isDigit) && [...num].filter(numberOfDecimalPoints).length <= 1
       return anw
     }
   }
@@ -145,7 +153,6 @@ export class CalculatorComponent implements OnInit {
       },
       error: (err: any) => {
         console.log(err)
-
       }
     })
 

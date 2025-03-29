@@ -4,16 +4,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CalculatorResponse}  from '../interfaces/calculator_response'
 import { OperatorResponse } from  '../interfaces/operator-response'
-import { GobalValue } from '../constant/gobal-value'
-
+import { CalculatorConstant } from '../constant/calculator-constant'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculatorService {
 
-  CALC:string = 'calc/'
-  OPERATIONS:string = 'operations'
 
   /**
    * 
@@ -29,7 +26,7 @@ export class CalculatorService {
    * @returns Observable of CalculatorResponse
    */
   getData(oper:string, fst:number, snd:number): Observable<CalculatorResponse> {
-    return this.http.get<CalculatorResponse>(`${GobalValue.serviceURL}${this.CALC}${oper}/${fst}/${snd}`)
+    return this.http.get<CalculatorResponse>(`${CalculatorConstant.SERVICE_URL}${CalculatorConstant.CALC}${oper}/${fst}/${snd}`)
   }
 
   /**
@@ -37,6 +34,6 @@ export class CalculatorService {
    * @returns Observable of OperatorResponse
    */
   getOperators(): Observable<OperatorResponse> {
-    return this.http.get<OperatorResponse>(`${GobalValue.serviceURL}${this.CALC}${this.OPERATIONS}`)
+    return this.http.get<OperatorResponse>(`${CalculatorConstant.SERVICE_URL}${CalculatorConstant.CALC}${CalculatorConstant.OPERATIONS}`)
   }
 }

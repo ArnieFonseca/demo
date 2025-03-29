@@ -31,7 +31,7 @@
             <label> Second Number: </label>
         </div>
         <div class="col-2 main-border">
-            <input class="form-control" style="background-color:lightcyan; " #secondNum type="text" maxlength="12"
+            <input class="form-control text-bg-color" #secondNum type="text" maxlength="12"
                 [(ngModel)]="secondNumber" />
         </div>
     </div>
@@ -41,11 +41,10 @@
             <label> Result Number: </label>
         </div>
         <div class="col-2 main-border">
-            <input class="form-control" style="background-color:lightcyan; " type="text" maxlength="12" readonly="true"
+            <input class="form-control text-bg-color" type="text" maxlength="12" readonly="true"
                 value="{{result}}" />
         </div>
     </div>
-
 
     <div>
         <button type="button" class="btn btn-primary" (click)="doCalculate()">
