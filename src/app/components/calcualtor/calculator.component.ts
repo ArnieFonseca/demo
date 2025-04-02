@@ -118,6 +118,13 @@ export class CalculatorComponent implements OnInit {
   }
 
   /**
+   * Clear the result when the operation dropdown changes
+   */
+  operChange(): void {
+    this.result = ''
+  }
+  
+  /**
    * Button Click Event Handler
    */
   doCalculate(): void {
