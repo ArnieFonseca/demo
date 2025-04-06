@@ -1,11 +1,11 @@
- 
+import { environment } from '../../environments/environment'; 
 /**
  * Private Helper Class
  */
 class GlobalHelper  {
-  static PROTOCOL:string = 'http://'
-  static PORT_NUMBER:string = '8000'
-  static BASE_URL:string = `127.0.0.1:${this.PORT_NUMBER}/`
+  static PROTOCOL:string = environment.PROTOCOL   
+  static PORT_NUMBER:string = environment.PORT_NUMBER
+  static BASE_URL:string = `${environment.SERVER_NAME}:${this.PORT_NUMBER}/`
 }
 
 /**

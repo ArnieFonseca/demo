@@ -6,7 +6,7 @@
         </div>
         <div class="col-2  main-border">
 
-            <select #operations class="form-select text-bg-color" style="width: 10em;">
+            <select #operations class="form-select text-bg-color" style="width: 10em;" (change)="operChange()">
                 <option *ngFor="let oper of operators" [value]="oper">
                     {{ oper }}
                 </option>
