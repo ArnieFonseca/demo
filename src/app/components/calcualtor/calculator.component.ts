@@ -5,9 +5,8 @@ import { CalculatorService } from '../../services/calculator.service'
 import { Observable } from 'rxjs';
 import { CalculatorResponse } from '../../interfaces/calculator_response';
 import { OperatorResponse } from '../../interfaces/operator-response';
-
-
-type SignalHtmlInput = Signal<ElementRef<HTMLInputElement> | undefined> 
+import { NumericValidation, SignalHtmlInput } from '../../shared/numeric-validation'
+import '../../shared/string-extention'
 @Component({
   selector: 'app-calculator',
   imports: [FormsModule, NgFor],
@@ -17,18 +16,24 @@ type SignalHtmlInput = Signal<ElementRef<HTMLInputElement> | undefined>
 export class CalculatorComponent implements OnInit {
 
   /**
+   * Constants
+   */
+  readonly INVALID_NUMERIC_VALUE:string = 'Invalid numeric value'
+
+  /**
    * References to HTML Tags
    */
-  operationsRef = viewChild<ElementRef<HTMLSelectElement>>("operations")
-  firstNumberRef: SignalHtmlInput   = viewChild<ElementRef<HTMLInputElement>>("firstNum")  
-  secondNumberRef: SignalHtmlInput  = viewChild<ElementRef<HTMLInputElement>>("secondNum")  
+  operationsRef = viewChild<ElementRef<HTMLSelectElement>>('operations')
+  firstNumberRef: SignalHtmlInput   = viewChild<ElementRef<HTMLInputElement>>('firstNum')  
+  secondNumberRef: SignalHtmlInput  = viewChild<ElementRef<HTMLInputElement>>('secondNum'
+)  
 
   /**
    * Components Properties
    */
-  firstNumber:string = ""
-  secondNumber:string = ""
-  result:string = ""  
+  firstNumber:string  = String.empty
+  secondNumber:string = String.empty
+  result:string       = String.empty  
   operators: string[] = []
 
   // Constructor
@@ -45,7 +50,7 @@ export class CalculatorComponent implements OnInit {
     operators.subscribe({
       next: (res: OperatorResponse) => {
 
-        console.log("Result  from Service ", res)
+        console.log("Result from Service ", res)
         this.operators = res.result
 
       },
@@ -54,51 +59,7 @@ export class CalculatorComponent implements OnInit {
       }
     })
   }
-
-  /**
-   * Check that the input is numeric
-   * @param num input to validate
-   * @returns true is success; false is failure
-   */
-  isNumeric(num:string):boolean {
-
-    const ZERO:string  = '0'
-    const NINE:string = '9'
-    const DOT  = '.'
-
-    // Check 0 to 9 range
-    type IsDigit = (n:string) => boolean
-    const isDigit:IsDigit = (n:string):boolean => (n >= ZERO && n <= NINE) || (n == DOT)
-
-    type NumberOfDecimalPoints = (n:string) => n is '.'
-    const numberOfDecimalPoints:NumberOfDecimalPoints  = (n:string) => n == DOT
-
-    if (num.trim().length === 0) {  // Case of empty ==> False
-      return false
-    }
-    else {                          // Otherwise check each character
-      const anw:boolean  = [...num].every(isDigit) && [...num].filter(numberOfDecimalPoints).length <= 1
-      return anw
-    }
-  }
-
-  /**
-   * Check that the input is valid before call the API Service
-   * @param num input to validate
-   * @param refElem Html tag reference 
-   * @returns true is success; false is failure
-   */
-  inputValidation(num:string,  refElem: SignalHtmlInput):boolean {
-    const anw:boolean = this.isNumeric(num)
-    if (anw === false) {
-       
-      (refElem()?.nativeElement as HTMLInputElement).focus() 
-      this.result = "Input is not numeric"
-    }
-
-    return anw
-  }
-
+ 
   /**
    * Get the value of the operation dropdown
    * @returns selected value
@@ -121,22 +82,24 @@ export class CalculatorComponent implements OnInit {
    * Clear the result when the operation dropdown changes
    */
   operChange(): void {
-    this.result = ''
+    this.result = String.empty
   }
   
   /**
    * Button Click Event Handler
    */
-  doCalculate(): void {
+  doCalculate(): void {  
 
     /**
      * Validate inputs
      */
-    if ( !this.inputValidation(this.firstNumber, this.firstNumberRef)  ) {      
+    if ( !NumericValidation.inputValidation(this.firstNumberRef)  ) {  
+      this.result = this.INVALID_NUMERIC_VALUE    
       return
     }
 
-    if ( !this.inputValidation(this.secondNumber,  this.secondNumberRef) ){ 
+    if ( !NumericValidation.inputValidation(this.secondNumberRef) ){ 
+      this.result = this.INVALID_NUMERIC_VALUE
       return
     }    
 
@@ -165,4 +128,13 @@ export class CalculatorComponent implements OnInit {
 
   }
 
+  /**
+   * Clear input and message fields
+   */
+  doReset(): void {
+
+    this.firstNumber  = String.empty
+    this.secondNumber = String.empty
+    this.result       = String.empty 
+  }
 }
