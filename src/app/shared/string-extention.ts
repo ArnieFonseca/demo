@@ -9,7 +9,7 @@ declare global {
   }
 
   /**
-   * Implements the new emprt property in the Sting interface
+   * Implements the new empty property in the String interface
    */
   String.empty = ''
 

@@ -7,6 +7,11 @@ import { CalculatorResponse } from '../../interfaces/calculator_response';
 import { OperatorResponse } from '../../interfaces/operator-response';
 import { NumericValidation, SignalHtmlInput } from '../../shared/numeric-validation'
 import '../../shared/string-extention'
+
+/**
+ * Signal HttpSelectElement alias
+ */
+type SignalHttpSelectElement = Signal<ElementRef<HTMLSelectElement> | undefined>
 @Component({
   selector: 'app-calculator',
   imports: [FormsModule, NgFor],
@@ -19,13 +24,14 @@ export class CalculatorComponent implements OnInit {
    * Constants
    */
   readonly INVALID_NUMERIC_VALUE:string = 'Invalid numeric value'
+  readonly RESULT_FROM_SERVER:string = 'Result  from Service '
 
   /**
    * References to HTML Tags
    */
-  operationsRef = viewChild<ElementRef<HTMLSelectElement>>('operations')
-  firstNumberRef: SignalHtmlInput   = viewChild<ElementRef<HTMLInputElement>>('firstNum')  
-  secondNumberRef: SignalHtmlInput  = viewChild<ElementRef<HTMLInputElement>>('secondNum'
+  operationsRef: SignalHttpSelectElement = viewChild<ElementRef<HTMLSelectElement>>('operations')
+  firstNumberRef: SignalHtmlInput        = viewChild<ElementRef<HTMLInputElement>>('firstNum')  
+  secondNumberRef: SignalHtmlInput       = viewChild<ElementRef<HTMLInputElement>>('secondNum'
 )  
 
   /**
@@ -50,7 +56,7 @@ export class CalculatorComponent implements OnInit {
     operators.subscribe({
       next: (res: OperatorResponse) => {
 
-        console.log("Result from Service ", res)
+        console.log(this.RESULT_FROM_SERVER, res)
         this.operators = res.result
 
       },
@@ -118,7 +124,7 @@ export class CalculatorComponent implements OnInit {
     // Retrive Data Asynch
     data.subscribe({
       next: (res: CalculatorResponse) => {
-        console.log("Result  from Service ", res)
+        console.log(this.RESULT_FROM_SERVER, res)
         this.result = res.result.toString()
       },
       error: (err: any) => {
